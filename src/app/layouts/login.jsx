@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import LoginForm from "../component/UI/loginForm";
 import RegisterForm from "../component/UI/registerForm";
 const Login = () => {
-    const type = useParams();
+    const { type } = useParams();
     const toogleFormType = () => {
         setFormType((prevState) =>
             prevState === "register" ? "login" : "register"
@@ -16,7 +16,7 @@ const Login = () => {
     return (
         <div className="container mt-5">
             <div className="row">
-                <div class="col-md-6 offset-md-3 shadow p-4 w-70">
+                <div className="col-md-6 offset-md-3 shadow p-4 w-70">
                     {formType === "register" ? (
                         <>
                             <h3 className="mb-4">Register</h3>

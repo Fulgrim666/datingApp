@@ -10,7 +10,7 @@ function App() {
         <div>
             <Navbar />
             <Switch>
-                <Route path={"/users/:userId?"} render={() => <Users />} />
+                <Route path={"/users/:userId?/:edit?"} component={Users} />
                 <Route path={"/login/:type?"} render={() => <Login />} />
                 <Route exact path={"/main"} render={() => <Main />} />
                 <Redirect to={"/main"} />

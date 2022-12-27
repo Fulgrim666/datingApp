@@ -1,10 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useState } from "react";
-const TextField = ({ label, type, name, value, onChange, errors }) => {
+const TextField = ({ label, type, name, value, onChange, error }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const handleChange = ({ target }) => {
+        onChange({ name: target.name, value: target.value });
+    };
     const getInputClasses = () => {
-        return "form-control " + (errors ? "is-invalid m-1" : "");
+        return "form-control " + (error ? "is-invalid m-1" : "");
     };
     const toogleShowPassword = () => {
         setShowPassword((prevState) => !prevState);
@@ -18,8 +21,8 @@ const TextField = ({ label, type, name, value, onChange, errors }) => {
                     id={name}
                     value={value}
                     name={name}
-                    onChange={onChange}
-                    errors={errors}
+                    onChange={handleChange}
+                    error={error}
                     className={getInputClasses()}
                 />
                 {type === "password" && (
@@ -35,7 +38,7 @@ const TextField = ({ label, type, name, value, onChange, errors }) => {
                         ></i>
                     </button>
                 )}
-                {errors && <div className="invalid-feedback">{errors}</div>}
+                {error && <div className="invalid-feedback">{error}</div>}
             </div>
         </div>
     );
@@ -49,7 +52,7 @@ TextField.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    errors: PropTypes.string.isRequired
+    error: PropTypes.string.isRequired
 };
 
 export default TextField;

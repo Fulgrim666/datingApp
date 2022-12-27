@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validate";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const LoginForm = () => {
-    const [data, setdata] = useState({ email: "", password: "" });
-    const [errors, setErrors] = useState({});
-    const handleChange = ({ target }) => {
+    const [data, setdata] = useState({
+        email: "",
+        password: "",
+        stayOn: false
+    });
+    const [error, setErrors] = useState({});
+    const handleChange = (target) => {
         setdata((prevState) => ({
             ...prevState,
             [target.name]: target.value
@@ -15,24 +20,24 @@ const LoginForm = () => {
     const validatorConfig = {
         email: {
             isRequired: {
-                massege: "Электронная почта обязательная для заполнения"
+                message: "Электронная почта обязательная для заполнения"
             },
             isEmail: {
-                massege: "Email введен некоректно"
+                message: "Email введен некоректно"
             }
         },
         password: {
             isRequired: {
-                massege: "Пароль обязателен для заполнения"
+                message: "Пароль обязателен для заполнения"
             },
             isCapitalLetter: {
-                massege: "Пароль должен содержать хотя бы одну заглавную букву"
+                message: "Пароль должен содержать хотя бы одну заглавную букву"
             },
             isContainDigit: {
-                massege: "Пароль должен содержать хотя бы одно число"
+                message: "Пароль должен содержать хотя бы одно число"
             },
             min: {
-                massege: "Пароль должен иметь минимум 8 символов",
+                message: "Пароль должен иметь минимум 8 символов",
                 value: 8
             }
         }
@@ -43,7 +48,7 @@ const LoginForm = () => {
         setErrors(errors);
         return Object.keys(errors).lenght === 0;
     };
-    const isValid = Object.keys(errors).length === 0;
+    const isValid = Object.keys(error).length === 0;
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
@@ -62,7 +67,7 @@ const LoginForm = () => {
                 name="email"
                 value={data.email}
                 onChange={handleChange}
-                errors={errors.email}
+                error={error.email}
             />
             <TextField
                 label="Пароль"
@@ -70,11 +75,19 @@ const LoginForm = () => {
                 name="password"
                 value={data.password}
                 onChange={handleChange}
-                errors={errors.password}
+                error={error.password}
             />
+            <CheckBoxField
+                value={data.stayOn}
+                name={"stayOn"}
+                onChange={handleChange}
+            >
+                Оставаться в системе
+            </CheckBoxField>
+
             <button
                 type="submit"
-                disabled={!isValid}
+                disabled={isValid}
                 className="btn btn-primary p-1 w-100"
             >
                 Submit
