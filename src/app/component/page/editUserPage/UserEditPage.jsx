@@ -71,7 +71,7 @@ const UserEditPage = () => {
     const getQualities = (elements) => {
         const qualitiesArray = [];
         for (const iterator of elements) {
-            for (const qual of qualities) {
+            for (const qual in qualities) {
                 if (iterator.value === qualities[qual].value) {
                     qualitiesArray.push({
                         _id: qualities[qual].value,
