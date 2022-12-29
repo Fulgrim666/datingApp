@@ -70,13 +70,13 @@ const UserEditPage = () => {
 
     const getQualities = (elements) => {
         const qualitiesArray = [];
-        for (const iterator of elements) {
+        for (const elem of elements) {
             for (const qual in qualities) {
-                if (iterator.value === qualities[qual].value) {
+                if (elem.value === qualities[qual].value) {
                     qualitiesArray.push({
-                        _id: qualities[qual].value,
-                        name: qualities[qual].label,
-                        color: qualities[qual].color
+                        label: qualities[qual].value,
+                        color: qualities[qual].color,
+                        name: qualities[qual].name
                     });
                 }
             }
@@ -96,7 +96,6 @@ const UserEditPage = () => {
                 qualities: getQualities(qualities)
             })
             .then((data) => history.push(`/users/${data._id}`));
-        console.log(data);
     };
 
     const transformData = (data) => {
@@ -207,3 +206,4 @@ UserEditPage.propTypes = {
     qualities: PropTypes.array,
     email: PropTypes.string
 };
+
